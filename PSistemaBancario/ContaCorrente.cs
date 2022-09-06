@@ -55,6 +55,7 @@ namespace PSistemaBancario
             float saldoContaDestino = float.Parse(dados[17]);
             saldoContaDestino += valor;
             dados[17] = saldoContaDestino.ToString();
+            Console.WriteLine(dados[17]);
 
             //Sobrescreve o mesmo arquivo com o saldo atualizado
             System.IO.StreamWriter arqPessoa = new StreamWriter($"C:\\Users\\Louise Campos\\source\\repos\\PSistemaBancario\\ContasBanco\\{cpfCnpj}.txt");
@@ -101,8 +102,6 @@ namespace PSistemaBancario
             {
                 Console.WriteLine("Solicitação cancelada!!!!");
             }
-
-            
         }
         protected int MenuCaixaEletronico()
         {
@@ -122,17 +121,9 @@ namespace PSistemaBancario
                 opc = int.Parse(Console.ReadLine());
                 return opc;
 
-
             } while (opc != 0);
             Console.WriteLine(">>>FIM<<<");
             return 0;
         }
-
-
-
-
-
-
-
     }
 }

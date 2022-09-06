@@ -48,7 +48,10 @@ namespace PSistemaBancario
             {
                 Sacar(valor, this.DadoCliente);
                 Console.WriteLine("Débito/Pagamento realizado com sucesso!");
+                Console.WriteLine("Saldo atual " + (this.Saldo - valor));
             }
+            Console.WriteLine("Tecle ENTER para continuar ");
+            Console.ReadKey();
         }
         public void Transferir(string cpfCnpjDestino, float valorSolicitado)
         {
@@ -77,9 +80,11 @@ namespace PSistemaBancario
                     Depositar(deposito, DadoCliente);
                     break;
                 case 3:
+                    Console.WriteLine("Digite o CPF do Destinatário: ");
+                    string cpf = Console.ReadLine();
                     Console.WriteLine("Digite o valor que deseja transferir: ");
                     float transfere = float.Parse(Console.ReadLine());
-                    Transferir(DadoCliente, transfere);
+                    Transferir(cpf, transfere);
                     break;
                 case 4:
                     Console.WriteLine("Digite o valor do Boleto para pagamento: ");
