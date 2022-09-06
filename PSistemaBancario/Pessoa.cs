@@ -13,6 +13,7 @@ namespace PSistemaBancario
         protected string Telefone { get; set; }
         protected DateTime Data { get; set; }
         protected int IdPessoa { get; set; }
+        public string Agencia { get; set; } 
 
         public Pessoa() 
         { 

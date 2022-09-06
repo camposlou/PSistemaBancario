@@ -14,30 +14,33 @@ namespace PSistemaBancario
             int agencia = 0;
            
 
-            Console.WriteLine("ACESSO ADMINISTRATIVO RESPONSÁVEL");
-            Console.WriteLine("Digite o número da agência operante: [1], [2] OU [3]: ");
+            Console.WriteLine(">>>ACESSO ADMINISTRATIVO RESPONSÁVEL<<<");
+            Console.WriteLine(" ♦ Digite o número da agência operante: [1], [2] OU [3]: ");
             agencia = int.Parse(Console.ReadLine());
             Console.WriteLine();
             if (agencia == 1)
             {
-                Console.WriteLine(Nome = " Nome: Louise");
-                Console.WriteLine(Cargo = " Cargo: Atendente");
+                Console.WriteLine(Nome = "Nome do funcionário: Louise");
+                Console.WriteLine(Cargo = "Cargo: Atendente");
+                Console.WriteLine();
 
             }
             else if (agencia == 2)
             {
-                Console.WriteLine(Nome = " Nome: Talia ");
+                Console.WriteLine(Nome = "Nome do funcionário: Talia ");
                 Console.WriteLine(Cargo = "Cargo: Atendente ");
+                Console.WriteLine();
             }
             else if (agencia == 3)
             {
-                Console.WriteLine(Nome = "Nome: Weslen ");
+                Console.WriteLine(Nome = "Nome do funcionário: Weslen ");
                 Console.WriteLine(Cargo = "Cargo: Atendente ");
+                Console.WriteLine();
             }
-            else if (agencia != 1 || agencia != 2 || agencia != 3)
-            {
-                Console.WriteLine("AGÊNCIA INVÁLIDA. TENTE NOVAMENTE");
-            }
+            //else if (agencia != 1 && agencia != 2 && agencia != 3)
+            //{
+               // Console.WriteLine("AGÊNCIA INVÁLIDA. TENTE NOVAMENTE");
+            //}
         }
 
         public void AbreConta()
@@ -53,21 +56,21 @@ namespace PSistemaBancario
             //Verifica caso não tenha solicitação no diretório ele sai do método
             if (listasol.Count == 0)
             {
-                Console.WriteLine("Não há solicitações no momento!");
+                Console.WriteLine(" ♦ Não há solicitações no momento!!!");
+                Console.WriteLine();
                 return;
             }
-
             else
-                Console.WriteLine($"Há {listasol.Count} solicitações pendentes!");
-
-
+                Console.WriteLine($" ♦ Há [{listasol.Count}] solicitações pendentes!");
+                Console.WriteLine();
+            
             //Busca o arquivo no caminho definido
             string[] solicita = System.IO.File.ReadAllLines($"C:\\Users\\Louise Campos\\source\\repos\\PSistemaBancario\\DBClientes\\Solicitacao\\{listasol.First()}");
             string[] solicitacao;
 
             List<string> solicitacaoList = new List<string>();
 
-            Console.WriteLine($"\nDados da Solicitação: ");
+            Console.WriteLine($"\n ♦ Dados da Solicitação: ");
 
             //Laço para mostrar na tela e inserir os dados do cliente na lista
             foreach (string cont in solicita)
@@ -81,12 +84,12 @@ namespace PSistemaBancario
                 }
 
             }
-            Console.WriteLine("Criar conta para o cliente?[S/N]: ");
+            Console.WriteLine(" ♦ Criar conta para o cliente?[S/N]: ");
             string ler = Console.ReadLine().ToLower().Trim();
 
             if (ler.Contains("s"))
             {
-                Console.WriteLine("Digite o tipo de conta:\n\n1 - Para Conta Universitária\n2 - Para Conta Normal\n3 - Para conta VIP");
+                Console.WriteLine(" ♦ Digite o tipo de conta:\n\n1 - Para Conta Universitária\n2 - Para Conta Normal\n3 - Para conta VIP");
                 int tipo = int.Parse(Console.ReadLine());
 
                 //Swith pra inserir o tipo de conta que o atendente escolher e depois envia o arquivo para o diretório AguardAprv para ser aprovado pelo Gerente
@@ -119,6 +122,8 @@ namespace PSistemaBancario
 
 
                 }
+                Console.WriteLine(" ♦ Cadastro enviado para análise de aprovação");
+                Console.WriteLine("Pressione ENTER para retornar ao Menu Principal");
 
 
 

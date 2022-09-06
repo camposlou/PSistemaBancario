@@ -21,12 +21,12 @@ namespace PSistemaBancario
         {
             if (this.Senha == senha)
             {
-                Console.WriteLine("Acesso Permitido");
+                Console.WriteLine(" ♦ Acesso Permitido");
                 return true;
             }
             else
             {
-                Console.WriteLine("Senha Inválida! Tente novamente");
+                Console.WriteLine(" ♦ Senha Inválida! Tente novamente");
                 return false;
             }
         }
@@ -44,12 +44,12 @@ namespace PSistemaBancario
             // Verifica caso não tenha pedido no pasta ele sai do método
             if (listasol.Count == 0)
             {
-                Console.WriteLine(" Não há solicitações no momento! ");
+                Console.WriteLine(" ♦ Não há solicitações no momento! ");
+                Console.WriteLine("Pressione ENTER para retornar ao Menu Principal");
                 return;
             }
-
             else
-                Console.WriteLine($" Há {listasol.Count} pendentes! ");
+                Console.WriteLine($" ♦ Há {listasol.Count} solicitações pendentes! ");
 
 
             // Busca o arquivo no caminho definido
@@ -57,7 +57,7 @@ namespace PSistemaBancario
             string[] busca;
 
             List<string> solicitacaoList = new();
-            Console.WriteLine($"\nDados da Solicitação: ");
+            Console.WriteLine($"\n ♦ Dados da Solicitação: ");
 
             // Laço para mostrar na tela e inserir os dados do cliente na lista
             foreach (string cont in solicita)
@@ -69,32 +69,22 @@ namespace PSistemaBancario
                     Console.WriteLine(busca[i]);
                     solicitacaoList.Add(busca[i]);
                 }
-                Console.WriteLine("Aprovar conta?[S/N]: ");
+                Console.WriteLine(listasol.First());
+                Console.WriteLine(" ♦ Aprovar conta?[S/N]: ");
                 string ler = Console.ReadLine().ToLower().Trim();
 
                 //Condição para abrir o tipo de conta solicitado pelo atendente
                 if (ler.Contains('s'))
                 {
-                    if (solicitacaoList.Contains("Tipo de conta: Conta Universitária"))
-                    {
-                        Console.WriteLine("Conta Universitaria criada con sucesso!!!!!!!");
-                    }
-                    else if (solicitacaoList.Contains("Tipo de conta: Conta Normal"))
-                    {
-                        Console.WriteLine("Conta Normal Criada com sucesso!!!!!!!!");
-                    }
-                    else
-                    {
-                        Console.WriteLine("Conta VIP Criada com sucesso!!!!!!!!");
-                    }
+                    System.IO.StreamWriter arqPessoa = new StreamWriter($"C:\\Users\\Louise Campos\\source\\repos\\PSistemaBancario\\DBClientes\\Analise\\{listasol.First()}");
+                    arqPessoa.WriteLine($"{solicita[0]}0;");
+                    arqPessoa.Close();
+                    File.Move($"C:\\Users\\Louise Campos\\source\\repos\\PSistemaBancario\\DBClientes\\Analise\\{listasol.First()}",
+                                $"C:\\Users\\Louise Campos\\source\\repos\\PSistemaBancario\\ContasBanco\\{listasol.First()}");
 
                 }
 
-               
             }
-
-
-
         }
     }
 }

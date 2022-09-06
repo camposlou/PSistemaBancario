@@ -11,62 +11,74 @@ namespace PSistemaBancario
     {
         protected string CPF { get; set; }
         protected float Renda { get; set; }
-        protected char Estudante { get; set; }
+        protected string Estudante { get; set; }
         protected string RA { get; set; }  
-
 
         public ClientePF()
         {
 
         }
+        public ClientePF(int id, string nome, string agencia, string telefone, DateTime data, string cpf, float renda, string estudante)
+        {
+            IdPessoa = id;
+            Agencia = agencia;
+            Nome = nome;
+            Telefone = telefone;
+            Data = data;
+            CPF = cpf;
+            Renda = renda;
+            Estudante = estudante;
+        }
         public override string ToString()
         {
-            return "ID: " + IdPessoa + ";Nome: " + Nome + ";Telefone: " + Telefone + ";Data: "+Data+
-                ";CPF: " + CPF + ";Renda: " + Renda+ ";RA: " + RA + ";";
+            return ";Conta Física;Agência: " + Agencia + ";Nome: " + Nome + ";Telefone: " + Telefone + ";Data de Nascimento: " + Data.ToShortDateString() + 
+                ";CPF: " + CPF + ";Renda: R$" + Renda + ";Estudante: " + RA + ";";
+        }
+        private string DadosClientePF()
+        {
+            return $"{IdPessoa};Conta Física;{Agencia};{Nome};{Telefone};{Data.ToShortDateString()};{CPF};{Renda};{RA};";
         }
 
         public string CadastrarPF(int id)
         {
             IdPessoa = id;
 
-            Console.WriteLine("Informe seu Nome completo:  ");
+            Console.WriteLine(" ♦ Informe seu Nome completo:  ");
             Nome = Console.ReadLine();
 
-            Console.WriteLine("Informe seu número de Telefone: ");
+            Console.WriteLine(" ♦ Informe seu número de Telefone: ");
             Telefone = Console.ReadLine();
 
-            Console.WriteLine("Informe a Data de nascimento [dd/mm/aa]: ");
+            Console.WriteLine(" ♦ Informe a Data de nascimento [dd/mm/aa]: ");
             Data = DateTime.Parse(Console.ReadLine());
 
-            Console.WriteLine("Informe o CPF: ");
+            Console.WriteLine(" ♦ Informe o CPF: ");
             CPF = (Console.ReadLine());
 
-            Console.WriteLine("Informe sua Renda: ");
+            Console.WriteLine(" ♦ Informe sua Renda: ");
             Renda = float.Parse(Console.ReadLine());
 
-            Console.WriteLine("O cliente é Estudante s/n: ");
-            Estudante = char.Parse(Console.ReadLine());
+            Console.WriteLine(" ♦ O cliente é Estudante s/n: ");
+            Estudante = Console.ReadLine();
 
-            if (Estudante == 's')
+            if (Estudante == "s")
             {
-                Console.WriteLine("Digite seu RA: ");
+                Console.WriteLine(" ♦ Digite seu RA: ");
                 RA = Console.ReadLine();
 
-                 Estudante = 's';
+                 Estudante = "s";
             }
             else
             {
-                Estudante = 'n';
+                Estudante = "n";
             }
             
-            return ToString();
+            return DadosClientePF(); 
         }
 
         public void SolicitarAberturaPF()
         {
-
             int id = getID();
-
             
             string pessoafisica = CadastrarPF(id);
             Console.WriteLine();
@@ -75,9 +87,6 @@ namespace PSistemaBancario
             string endereco = end.CadastrarEndereco(id);
             Console.ReadKey();
             Console.WriteLine();
-            
-            
-            
             
 
             try
@@ -92,7 +101,7 @@ namespace PSistemaBancario
             {
                 Console.WriteLine("Exception: "+ ex.Message);
             }
-            Console.WriteLine("Cadastro enviado para análise de aprovação");
+            
 
 
         }

@@ -9,44 +9,59 @@ namespace PSistemaBancario
 {
     internal class ClientePJ : Pessoa
     {
-
-        protected string RazaoSocial { get; set; }
-        protected string CNPJ { get; set; }
+        private string RazaoSocial { get; set; }
+        private string CNPJ { get; set; }
+        private float Renda { get; set; }
 
 
         public ClientePJ()
         {
 
         }
+        public ClientePJ(int id, string agencia, string nome, string telefone, DateTime data, string razao, string cnpj, float renda)
+        {
+            IdPessoa = id;
+            Agencia = agencia; 
+            Nome = nome;
+            Telefone = telefone;
+            Data = data;
+            RazaoSocial = razao;
+            CNPJ = cnpj;
+            Renda = renda;
+        }
         public override string ToString()
         {
-            return "ID: " + IdPessoa + ";Nome: " + Nome + ";Telefone: " + Telefone + ";Data:" + Data + ";RazaoSocial: " + RazaoSocial +
-                ";CNPJ: " + CNPJ + ";";
+            return IdPessoa + ";Conta Jurídica;Agência: " + Agencia + ";Nome: " + Nome + ";Telefone: " + Telefone + ";Data de Abertura CNPJ: " + Data.ToShortDateString() + 
+                ";Razão Social: " + RazaoSocial + ";CNPJ: " + CNPJ + ";Renda: " + Renda + ";";
         }
+        private string DadosClientePJ()
+        {
+            return $"{IdPessoa};Conta Jurídica;{Agencia};{Nome};{Telefone};{Data.ToShortDateString()};{RazaoSocial};{CNPJ};{Renda};";
+        }
+
         public string CadastrarPJ(int id)
         {
             IdPessoa = id;
 
-            Console.WriteLine("Digite o nome fantasia da sua empresa");
+            Console.WriteLine(" ♦ Digite o nome fantasia da sua empresa");
             Nome = Console.ReadLine();
 
-            Console.WriteLine("Digite o numero de telefone");
+            Console.WriteLine(" ♦ Digite o numero de telefone");
             Telefone = Console.ReadLine();
 
-            Console.WriteLine("Digite a data de abertura do CNPJ");
+            Console.WriteLine(" ♦ Digite a data de abertura do CNPJ");
             Data = DateTime.Parse(Console.ReadLine());
 
-            Console.WriteLine("Digite a Razão Social");
+            Console.WriteLine(" ♦ Digite a Razão Social");
             RazaoSocial = Console.ReadLine();
 
-            Console.WriteLine("Digite o CNPJ da empresa");
+            Console.WriteLine(" ♦ Digite o CNPJ da empresa");
             CNPJ = Console.ReadLine();
 
-            return ToString();
+            return DadosClientePJ();
         }
         public void SolicitarAberturaPJ()
         {
-
             int id = getID();
 
             string pessoajuridica = CadastrarPJ(id);
@@ -69,7 +84,7 @@ namespace PSistemaBancario
             {
                 Console.WriteLine("Exception: " + ex.Message);
             }
-            Console.WriteLine("Cadastro enviado para análise de aprovação");
+            
 
         }
     }

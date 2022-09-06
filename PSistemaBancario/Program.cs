@@ -12,6 +12,8 @@ namespace PSistemaBancario
             do
             {
                 Console.Clear();
+                Console.WriteLine("\n♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ BEM VINDO AO BANCO MORANGÃO ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥  ");
+                Console.WriteLine();
                 Console.WriteLine(">>> MENU PRINCIPAL <<<");
                 Console.WriteLine("1 - Não sou cliente ");
                 Console.WriteLine("2 - Já sou cliente ");
@@ -21,11 +23,9 @@ namespace PSistemaBancario
                 opcMenu = int.Parse(Console.ReadLine());
                 switch (opcMenu)
                 {
-                   
-
                     case 1:
                         char opc;
-                        Console.WriteLine("Deseja se Cadastrar? Digite [s/n]");
+                        Console.WriteLine(" ♦ Deseja se Cadastrar? Digite [s/n]");
                         opc = char.Parse(Console.ReadLine());
                         if (opc == 's')
                         {
@@ -38,7 +38,7 @@ namespace PSistemaBancario
                         }
                         break;
                     case 2:
-                        Console.WriteLine("Digite [s] > Operações da Conta / [n] > Retornar para o Menu Principal");
+                        Console.WriteLine(" ♦ Digite [s] - Operações da Conta / [n] - Retornar para o Menu Principal");
                         opc = char.Parse(Console.ReadLine());
                         if (opc == 's')
                         {
@@ -52,8 +52,9 @@ namespace PSistemaBancario
                         break;
                     case 3:
                         int funcopc;
-                        Console.WriteLine("Digite [1] > Atendente / [2] > Gerente");
+                        Console.WriteLine(" ♦ Digite [1] - Atendente / [2] - Gerente");
                         funcopc = int.Parse(Console.ReadLine());
+                        Console.Clear();
                         if (funcopc == 1)
                         {
                             Atendente atendente = new Atendente();
@@ -70,7 +71,8 @@ namespace PSistemaBancario
                             bool senha;
                             do
                             {
-                                Console.WriteLine("Digite sua senha de acesso: ");
+                                Console.WriteLine(">>>ACESSO ADMINISTRATIVO RESPONSÁVEL<<<");
+                                Console.WriteLine(" ♦ Digite sua senha de acesso: ");
                                 int acesso = int.Parse(Console.ReadLine());
                                 gerente = new Gerente();
                                 senha = gerente.Autentica(acesso);
@@ -118,28 +120,30 @@ namespace PSistemaBancario
         {
             int opc = 0;
 
-            Console.WriteLine("\n//////////////////////////////> BEM VINDO AO BANCO MORANGÃO <///////////////////////////////");
+           
             Console.WriteLine();
             Console.Write("\nQUE BOM QUE VOCÊ ESTÁ AQUI! ENVIE SUA SOLICITAÇÃO DE CADASTRO ABAIXO:");
             Console.WriteLine();
-            Console.Write("\nEscolha a opção: [Pessoa fisica: 1]  [Pessoa Juridica: 2]: ");
+            Console.Write("\n ♦ Escolha a opção: [Pessoa fisica: 1]  [Pessoa Juridica: 2]: ");
             opc = int.Parse(Console.ReadLine());
             Console.WriteLine();
             if (opc == 1)
             {
-                Console.WriteLine("CADASTRO PESSOA FÍSICA: DADOS PESSOAIS ");
+                Console.WriteLine(">>>CADASTRO PESSOA FÍSICA: DADOS PESSOAIS<<< ");
                 ClientePF pf1 = new ClientePF();
                 pf1.SolicitarAberturaPF();
                 Console.WriteLine("CADASTRO REALIZADO COM SUCESSO! AGUARDANDO ANÁLISE DE APROVAÇÃO!");
+                Console.WriteLine("Pressione ENTER para retornar ao Menu Principal");
                 Console.WriteLine();
                 Console.ReadKey();
             }
             else
             {
-                Console.WriteLine("CADASTRO PESSOA JURIDICA: DADOS DA EMPRESA ");
+                Console.WriteLine(">>>CADASTRO PESSOA JURIDICA: DADOS DA EMPRESA<<< ");
                 ClientePJ pj1 = new ClientePJ();
                 pj1.SolicitarAberturaPJ();
                 Console.WriteLine("CADASTRO REALIZADO COM SUCESSO! AGUARDE ANÁLISE DE APROVAÇÃO");
+                Console.WriteLine("Pressione ENTER para retornar ao Menu Principal");
                 Console.WriteLine();
                 Console.ReadKey();
                 Console.Clear();
@@ -153,10 +157,6 @@ namespace PSistemaBancario
             MenuPrincipal();
 
         }
-
-
-
-
     }
 }
 

@@ -21,19 +21,31 @@ namespace PSistemaBancario
         {
 
         }
-
-
+        public Endereco(string logradouro, string numero, string complemento, string bairro, string cep, string cidade, string estado)
+        {
+            Logradouro = logradouro;
+            Numero = numero;
+            Complemento = complemento;
+            Bairro = bairro;
+            CEP = cep;
+            Cidade = cidade;
+            UF = estado;
+        }
         public override string ToString()
         {
             return "IdPessoa: " + IdPessoa + ";Logradouro: " + Logradouro + ";Numero: " + Numero + ";Complemento: " + Complemento + ";Bairro: " + Bairro +
                 ";CEP: " + CEP + ";Cidade: " + Cidade + ";Estado: " + UF+ ";";
 
         }
+       public string DadosEnd()
+        {
+            return $" {Logradouro};{Numero};{Complemento};{Bairro};{CEP};{Cidade};{UF};";
+        }
         public string CadastrarEndereco(int id)
         {
-            Console.WriteLine("CADASTRE SEU ENDEREÇO");
+            Console.WriteLine(">>>CADASTRE SEU ENDEREÇO<<<");
             Console.WriteLine();
-            Console.WriteLine("Digite a quantidade de endereço que deseja cadastrar: ");
+            Console.WriteLine(" ♦ Digite a quantidade de endereço que deseja cadastrar: ");
             int qtd_endereco = int.Parse(Console.ReadLine());
             Endereco[] endereco = new Endereco[qtd_endereco];
 
@@ -41,33 +53,29 @@ namespace PSistemaBancario
             {
                 Console.WriteLine("\nEndereço: "+(i + 1)+ " ; ");
 
-                Console.WriteLine("Informe o nome da Rua/Avenida: ");
+                Console.WriteLine(" ♦ Informe o nome da Avenida/Rua: ");
                 Logradouro = Console.ReadLine();
 
-                Console.WriteLine("Informe o Número");
+                Console.WriteLine(" ♦ Informe o Número");
                 Numero = Console.ReadLine();
 
-                Console.WriteLine("Informe o Complemento");
+                Console.WriteLine(" ♦ Informe o Complemento");
                 Complemento = Console.ReadLine();
 
-                Console.WriteLine("Informe o Bairro");
+                Console.WriteLine(" ♦ Informe o Bairro");
                 Bairro = Console.ReadLine();
 
-                Console.WriteLine("Informe o Cep");
+                Console.WriteLine(" ♦ Informe o Cep");
                 CEP = Console.ReadLine();
 
-                Console.WriteLine("Informe a Cidade");
+                Console.WriteLine(" ♦ Informe a Cidade");
                 Cidade = Console.ReadLine();
 
-                Console.WriteLine("Informe o Estado");
+                Console.WriteLine(" ♦ Informe o Estado");
                 UF = Console.ReadLine();
                 
             }
-            return ToString();
-
-            
-
-                
+            return DadosEnd();
         }
     }
 }
