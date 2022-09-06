@@ -36,7 +36,7 @@ namespace PSistemaBancario
         }
         private string DadosClientePJ()
         {
-            return $"{IdPessoa};Conta Jurídica;{Agencia};{Nome};{Telefone};{Data.ToShortDateString()};{RazaoSocial};{CNPJ};{Renda};";
+            return $"{IdPessoa};Conta Jurídica;{Agencia};{Nome};{Telefone};{Data.ToShortDateString()};{CNPJ};{RazaoSocial};{Renda};";
         }
 
         public string CadastrarPJ(int id)

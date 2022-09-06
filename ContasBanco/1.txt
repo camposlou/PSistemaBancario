@@ -1,1 +1,0 @@
-1;Conta Física;;louise;1;09/07/1987;1;1;1; ave;1;1;vila;1;ara;sp;Tipo de conta: Conta Universitária;0;
