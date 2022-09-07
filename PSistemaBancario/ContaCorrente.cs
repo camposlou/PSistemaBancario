@@ -103,26 +103,70 @@ namespace PSistemaBancario
                 Console.WriteLine("Solicitação cancelada!!!!");
             }
         }
+        protected void AddExtrato(string cpfCnpj, string extrato)
+        {
+            try
+            {
+                string caminho = $"C:\\Users\\Louise Campos\\source\\repos\\PSistemaBancario\\ImprimeExtratos\\{cpfCnpj}.txt";
+
+                string texto = $"{extrato}\n";
+
+                File.AppendAllText(caminho, texto);
+
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine($"Não foi possível salvar o extrato!! Contate o Suporte: Erro: {ex.Message}");
+            }
+            
+        }
+        public void GetExtrato(string cpfCnpj)
+        {
+            try
+            {
+                FileStream fs = File.OpenRead($"C:\\Users\\Louise Campos\\source\\repos\\PSistemaBancario\\ImprimeExtratos\\{cpfCnpj}.txt");
+
+                byte[] b = new byte[1024];
+                UTF8Encoding temp = new(true);
+
+                Console.WriteLine("****************************** EXTRATO DA CONTA ***********************************");
+                Console.WriteLine($"CPF/CNPJ: {DadoCliente}");
+
+                while (fs.Read(b, 0, b.Length) > 0)
+                {
+                    Console.WriteLine(temp.GetString(b));
+                }
+                Console.WriteLine("***********************************************************************************");
+                Console.WriteLine($"\nSALDO ATUAL DA CONTA: R${Saldo:N2}");
+                Console.WriteLine("***********************************************************************************");
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Não há impressões disponíveis!! Erro: {ex.Message}");
+                return;
+            }
+        }
         protected int MenuCaixaEletronico()
         {
             int opc;
             do
             {
                 Console.Clear();
-                Console.WriteLine(">>> MENU CAIXA ELETRÔNICO <<<");
-                Console.WriteLine("1 - Realizar Saque ");
-                Console.WriteLine("2 - Realizar Depósito");
-                Console.WriteLine("3 - Realizar Tranferência");
-                Console.WriteLine("4 - Realizar Pagamentos");
-                Console.WriteLine("5 - Consultar Extrato");
-                Console.WriteLine("6 - Solicitar Empréstimo");
-                Console.WriteLine("0 - Sair");
-                Console.Write("Opção: ");
+                Console.WriteLine("                                           >>> MENU CAIXA ELETRÔNICO <<<");
+                Console.WriteLine("                                               1 - Realizar Saque ");
+                Console.WriteLine("                                               2 - Realizar Depósito");
+                Console.WriteLine("                                               3 - Realizar Tranferência");
+                Console.WriteLine("                                               4 - Realizar Pagamentos");
+                Console.WriteLine("                                               5 - Consultar Extrato");
+                Console.WriteLine("                                               6 - Solicitar Empréstimo");
+                Console.WriteLine("                                               0 - Sair");
+                Console.Write("                                                   Opção: ");
                 opc = int.Parse(Console.ReadLine());
                 return opc;
 
             } while (opc != 0);
-            Console.WriteLine(">>>FIM<<<");
+            Console.WriteLine("                                                          >>>FIM<<<");
             return 0;
         }
     }

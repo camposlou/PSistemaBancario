@@ -1,1 +1,1 @@
-4;Conta Física;;Louise Aline;16991055563;09/07/1987;34525552832;1500;123654; avenida ST;200;10;Vila;14810115;araraquara;Sp;Tipo de conta: Conta Universitária;-500;
+6;Conta Física;;Louise;16;09/07/1987;34525552832;1500;; avenida;200;10;Vila;14;ara;Sp;Tipo de conta: Conta Normal;0;

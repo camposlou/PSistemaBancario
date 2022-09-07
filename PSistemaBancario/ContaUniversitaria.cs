@@ -17,13 +17,21 @@ namespace PSistemaBancario
             string[] dados = new string[18];
             foreach (string dado in solicita)
                 dados = dado.Split(';');
-            
-            ClientePF pessoa = new(int.Parse(dados[0]), dados[2], dados[3], dados[4], DateTime.Parse(dados[5]), dados[6], float.Parse(dados[7]), (dados[8]));
-            Pessoa = pessoa;
-            Numconta = int.Parse(dados[0]);
-            DadoCliente = dados[6];
-            
 
+            if (solicita[0].Contains("Física"))
+            {
+                ClientePF pessoa = new(int.Parse(dados[0]), dados[2], dados[3], dados[4], DateTime.Parse(dados[5]), dados[6], float.Parse(dados[7]), (dados[8]));
+                Pessoa = pessoa;
+                Numconta = int.Parse(dados[0]);
+                DadoCliente = dados[6];
+            }
+            else
+            {
+                ClientePJ empresa = new(int.Parse(dados[0]), dados[2], dados[3], dados[4], DateTime.Parse(dados[5]), dados[6], dados[7], float.Parse((dados[8])));
+                Empresa = empresa;
+                Numconta = int.Parse(dados[0]);
+                DadoCliente = dados[6];
+            }
             Endereco end = new(dados[9], dados[10], dados[11], dados[12], dados[13], dados[14], dados[15]);
             Saldo = float.Parse(dados[17]);
             Endereco = end;
@@ -35,11 +43,11 @@ namespace PSistemaBancario
         public void SacarCUniver(float valor)
         {
             if (this.Saldo - valor < -1000)
-                Console.WriteLine("Não foi possível pois o valor do saque é maior que o limite da conta!");
+                Console.WriteLine("Não foi possível. Saldo Insufuciente! ");
             else
             {
                 Sacar(valor, this.DadoCliente);
-                Console.WriteLine("Débito/Pagamento realizado com sucesso!");
+                Console.WriteLine("Transação realizada com sucesso!");
 
                 Console.WriteLine("Saldo atual " + (this.Saldo - valor));
             }
@@ -63,21 +71,36 @@ namespace PSistemaBancario
             {
                 case 1:
 
-                    Console.WriteLine("Digite o valor do saque desejado: ");
+                    Console.WriteLine("Digite o valor de saque desejado: ");
                     float saque = float.Parse(Console.ReadLine());
                     SacarCUniver(saque);
                     break;
                 case 2:
-                    Console.WriteLine("digite o valor que deseja depositar: ");
+                    Console.WriteLine("Digite o valor do depósito: ");
                     float deposito = float.Parse(Console.ReadLine());
                     Depositar(deposito, DadoCliente);
                     break;
                 case 3:
-                    Console.WriteLine("Digite o CPF do Destinatário: ");
-                    string cpf = Console.ReadLine();
-                    Console.WriteLine("Digite o valor que deseja transferir: ");
-                    float transfere = float.Parse(Console.ReadLine());
-                    Transferir(cpf, transfere);
+                    Console.WriteLine("Digite [1] - CPF ou [2]- CNPJ do Destinatário: ");
+                    int opc = int.Parse(Console.ReadLine());
+                    Console.WriteLine();
+                    if (opc == 1)
+                    {
+                        Console.WriteLine("\nCPF: ");
+                        string cpf = Console.ReadLine();
+                        Console.WriteLine("Digite o valor que deseja transferir: ");
+                        float transfere = float.Parse(Console.ReadLine());
+                        Transferir(cpf, transfere);
+                    }
+                    if (opc == 2)
+                    {
+                        Console.WriteLine("\nCNPJ: ");
+                        string cnpj = Console.ReadLine();
+
+                        Console.WriteLine("Digite o valor que deseja transferir: ");
+                        float transfere = float.Parse(Console.ReadLine());
+                        Transferir(cnpj, transfere);
+                    }
                     break;
                 case 4:
                     Console.WriteLine("Digite o valor do Boleto para pagamento: ");
@@ -85,8 +108,8 @@ namespace PSistemaBancario
                     RealizaPagamento(pagamento);
                     break;
                 case 5:
-                    //Extrato
-                    
+
+                    GetExtrato(DadoCliente);
                     break;
                 case 6:
                     

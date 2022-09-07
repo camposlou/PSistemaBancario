@@ -75,16 +75,31 @@ namespace PSistemaBancario
                     SacarCVip(saque);
                     break;
                 case 2:
-                    Console.WriteLine("digite o valor que deseja depositar: ");
+                    Console.WriteLine("Digite o valor que deseja depositar: ");
                     float deposito = float.Parse(Console.ReadLine());
                     Depositar(deposito, DadoCliente);
                     break;
                 case 3:
-                    Console.WriteLine("Digite o CPF do Destinatário: ");
-                    string cpf = Console.ReadLine();
-                    Console.WriteLine("Digite o valor que deseja transferir: ");
-                    float transfere = float.Parse(Console.ReadLine());
-                    Transferir(cpf, transfere);
+                    Console.WriteLine("Digite [1] - CPF ou [2]- CNPJ do Destinatário: ");
+                    int opc = int.Parse(Console.ReadLine());
+                    Console.WriteLine();
+                    if (opc == 1)
+                    {
+                        Console.WriteLine("\nCPF: ");
+                        string cpf = Console.ReadLine();
+                        Console.WriteLine("Digite o valor que deseja transferir: ");
+                        float transfere = float.Parse(Console.ReadLine());
+                        Transferir(cpf, transfere);
+                    }
+                    if (opc == 2)
+                    {
+                        Console.WriteLine("\nCNPJ: ");
+                        string cnpj = Console.ReadLine();
+
+                        Console.WriteLine("Digite o valor que deseja transferir: ");
+                        float transfere = float.Parse(Console.ReadLine());
+                        Transferir(cnpj, transfere);
+                    }
                     break;
                 case 4:
                     Console.WriteLine("Digite o valor do Boleto para pagamento: ");
@@ -92,7 +107,8 @@ namespace PSistemaBancario
                     RealizaPagamento(pagamento);
                     break;
                 case 5:
-                    //Extrato
+
+                    GetExtrato(DadoCliente);
                     break;
                 case 6:
 

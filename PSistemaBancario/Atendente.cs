@@ -12,37 +12,38 @@ namespace PSistemaBancario
         public void AcessoAtendente()
         {
             int agencia = 0;
-           
+            Console.WriteLine("                                         >>>ACESSO ADMINISTRATIVO RESPONSÁVEL<<<");
+            do
+            {
+                Console.WriteLine(" ♦ Digite o número da agência operante: [1], [2] OU [3]: ");
+                agencia = int.Parse(Console.ReadLine());
+                Console.WriteLine();
+                if (agencia == 1)
+                {
+                    Console.WriteLine(Nome = "Nome do funcionário: Louise ");
+                    Console.WriteLine(Cargo = "Cargo: Atendente ");
+                    Console.WriteLine();
 
-            Console.WriteLine(">>>ACESSO ADMINISTRATIVO RESPONSÁVEL<<<");
-            Console.WriteLine(" ♦ Digite o número da agência operante: [1], [2] OU [3]: ");
-            agencia = int.Parse(Console.ReadLine());
-            Console.WriteLine();
-            if (agencia == 1)
-            {
-                Console.WriteLine(Nome = "Nome do funcionário: Louise");
-                Console.WriteLine(Cargo = "Cargo: Atendente");
-                Console.WriteLine();
-
-            }
-            else if (agencia == 2)
-            {
-                Console.WriteLine(Nome = "Nome do funcionário: Talia ");
-                Console.WriteLine(Cargo = "Cargo: Atendente ");
-                Console.WriteLine();
-            }
-            else if (agencia == 3)
-            {
-                Console.WriteLine(Nome = "Nome do funcionário: Weslen ");
-                Console.WriteLine(Cargo = "Cargo: Atendente ");
-                Console.WriteLine();
-            }
-            //else if (agencia != 1 && agencia != 2 && agencia != 3)
-            //{
-               // Console.WriteLine("AGÊNCIA INVÁLIDA. TENTE NOVAMENTE");
-            //}
+                }
+                else if (agencia == 2)
+                {
+                    Console.WriteLine(Nome = "Nome do funcionário: Thalya ");
+                    Console.WriteLine(Cargo = "Cargo: Atendente ");
+                    Console.WriteLine();
+                }
+                else if (agencia == 3)
+                {
+                    Console.WriteLine(Nome = "Nome do funcionário: Weslen ");
+                    Console.WriteLine(Cargo = "Cargo: Atendente ");
+                    Console.WriteLine();
+                }
+                else
+                {
+                    Console.WriteLine("Agência Inválida. Tente Novamente!");
+                }
+            }while (agencia !=1 && agencia !=2 && agencia !=3);
+            
         }
-
         public void AbreConta()
         {
             //Verifica a quantidade de solicitações

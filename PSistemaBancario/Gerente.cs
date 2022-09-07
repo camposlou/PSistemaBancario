@@ -50,8 +50,6 @@ namespace PSistemaBancario
             }
             else
                 Console.WriteLine($" ♦ Há {listasol.Count} solicitações pendentes! ");
-
-
             // Busca o arquivo no caminho definido
             string[] solicita = System.IO.File.ReadAllLines($"C:\\Users\\Louise Campos\\source\\repos\\PSistemaBancario\\DBClientes\\Analise\\{listasol.First()}");
             string[] busca;

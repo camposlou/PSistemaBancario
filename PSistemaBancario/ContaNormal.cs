@@ -92,7 +92,8 @@ namespace PSistemaBancario
                     RealizaPagamento(pagamento);
                     break;
                 case 5:
-                    //Extrato
+
+                    GetExtrato(DadoCliente);
 
                     break;
                 case 6:
