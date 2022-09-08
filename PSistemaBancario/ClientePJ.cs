@@ -20,7 +20,7 @@ namespace PSistemaBancario
         }
         public ClientePJ(int id, string agencia, string nome, string telefone, DateTime data, string razao, string cnpj, float renda)
         {
-            IdPessoa = id;
+            IDPessoa = id;
             Agencia = agencia; 
             Nome = nome;
             Telefone = telefone;
@@ -31,31 +31,33 @@ namespace PSistemaBancario
         }
         public override string ToString()
         {
-            return IdPessoa + ";Conta Jurídica;Agência: " + Agencia + ";Nome: " + Nome + ";Telefone: " + Telefone + ";Data de Abertura CNPJ: " + Data.ToShortDateString() + 
+            return IDPessoa + ";Conta Jurídica;Agência: " + Agencia + ";Nome: " + Nome + ";Telefone: " + Telefone + ";Data de Abertura CNPJ: " + Data.ToShortDateString() + 
                 ";Razão Social: " + RazaoSocial + ";CNPJ: " + CNPJ + ";Renda: " + Renda + ";";
         }
         private string DadosClientePJ()
         {
-            return $"{IdPessoa};Conta Jurídica;{Agencia};{Nome};{Telefone};{Data.ToShortDateString()};{CNPJ};{RazaoSocial};{Renda};";
+            return $"{IDPessoa};Conta Jurídica;{Agencia};{Nome};{Telefone};{Data.ToShortDateString()};{CNPJ};{RazaoSocial};{Renda};";
         }
 
         public string CadastrarPJ(int id)
         {
-            IdPessoa = id;
+            IDPessoa = id;
+            Console.Write(" * Digite o Número da agência[1 - Mococa / 2 - Araraquara / 3 - Muzambinho]: ");
+            Agencia = Console.ReadLine();
 
-            Console.WriteLine(" ♦ Digite o nome fantasia da sua empresa");
+            Console.Write(" * Digite o nome fantasia da sua empresa: ");
             Nome = Console.ReadLine();
 
-            Console.WriteLine(" ♦ Digite o numero de telefone");
+            Console.Write(" * Digite o numero de telefone: ");
             Telefone = Console.ReadLine();
 
-            Console.WriteLine(" ♦ Digite a data de abertura do CNPJ");
+            Console.Write(" * Digite a data de abertura do CNPJ: ");
             Data = DateTime.Parse(Console.ReadLine());
 
-            Console.WriteLine(" ♦ Digite a Razão Social");
+            Console.Write(" * Digite a Razão Social: ");
             RazaoSocial = Console.ReadLine();
 
-            Console.WriteLine(" ♦ Digite o CNPJ da empresa");
+            Console.Write(" * Digite o CNPJ da empresa: ");
             CNPJ = Console.ReadLine();
 
             return DadosClientePJ();

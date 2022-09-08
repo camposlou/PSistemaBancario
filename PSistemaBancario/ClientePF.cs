@@ -20,7 +20,7 @@ namespace PSistemaBancario
         }
         public ClientePF(int id, string nome, string agencia, string telefone, DateTime data, string cpf, float renda, string estudante)
         {
-            IdPessoa = id;
+            IDPessoa = id;
             Agencia = agencia;
             Nome = nome;
             Telefone = telefone;
@@ -36,43 +36,36 @@ namespace PSistemaBancario
         }
         private string DadosClientePF()
         {
-            return $"{IdPessoa};Conta Física;{Agencia};{Nome};{Telefone};{Data.ToShortDateString()};{CPF};{Renda};{RA};";
+            return $"{IDPessoa};Conta Física;{Agencia};{Nome};{Telefone};{Data.ToShortDateString()};{CPF};{Renda};{RA};";
         }
 
         public string CadastrarPF(int id)
         {
-            IdPessoa = id;
-
-            Console.WriteLine(" ♦ Informe seu Nome completo:  ");
+            IDPessoa = id;
+            Console.Write(" * Digite o Número da agência[1 - Mococa / 2 - Araraquara / 3 - Muzambinho]: ");
+            Agencia = Console.ReadLine();
+            Console.Write(" * Informe seu Nome completo:  ");
             Nome = Console.ReadLine();
-
-            Console.WriteLine(" ♦ Informe seu número de Telefone: ");
+            Console.Write(" * Informe seu número de Telefone: ");
             Telefone = Console.ReadLine();
-
-            Console.WriteLine(" ♦ Informe a Data de nascimento [dd/mm/aa]: ");
+            Console.Write(" * Informe a Data de nascimento [dd/mm/aa]: ");
             Data = DateTime.Parse(Console.ReadLine());
-
-            Console.WriteLine(" ♦ Informe o CPF: ");
+            Console.Write(" * Informe o CPF: ");
             CPF = (Console.ReadLine());
-
-            Console.WriteLine(" ♦ Informe sua Renda: ");
+            Console.Write(" * Informe sua Renda: ");
             Renda = float.Parse(Console.ReadLine());
-
-            Console.WriteLine(" ♦ O cliente é Estudante s/n: ");
+            Console.Write(" * O cliente é Estudante s/n: ");
             Estudante = Console.ReadLine();
-
             if (Estudante == "s")
             {
-                Console.WriteLine(" ♦ Digite seu RA: ");
+                Console.Write(" * Digite seu RA: ");
                 RA = Console.ReadLine();
-
-                 Estudante = "s";
+                Estudante = "s";
             }
             else
             {
                 Estudante = "n";
             }
-            
             return DadosClientePF(); 
         }
 

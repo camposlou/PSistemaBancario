@@ -1,1 +1,0 @@
-3;Conta Física;;louise;15;09/07/1987;34525552832;1500;; avenida;200;10;Vila;14;arara;Sp;Tipo de conta: Conta Normal;0;30000;

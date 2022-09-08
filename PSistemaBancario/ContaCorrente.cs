@@ -10,7 +10,7 @@ namespace PSistemaBancario
 {
     internal abstract class ContaCorrente
     {
-        public int Numconta { get; set; }
+        public int NumConta { get; set; }
         public float Saldo { get; set; }
         public ClientePF Pessoa { get; set; }
         public ClientePJ Empresa { get; set; }
@@ -67,10 +67,10 @@ namespace PSistemaBancario
         {
             float valorParcela;
 
-            Console.Write("Digite o valor do empréstimo: R$");
+            Console.Write(" * Digite o valor do empréstimo: R$");
             float valor = float.Parse(Console.ReadLine());
 
-            Console.Write("Digite a quantidade de parcelas (máximo 36x): ");
+            Console.Write(" * Digite a quantidade de parcelas (máximo 36x): ");
             int parcelas = int.Parse(Console.ReadLine());
 
             if (parcelas > 10)
@@ -127,30 +127,42 @@ namespace PSistemaBancario
         {
             try
             {
+                string[] conta = System.IO.File.ReadAllLines($"C:\\Users\\Louise Campos\\source\\repos\\PSistemaBancario\\ContasBanco\\{cpfCnpj}.txt");
+                string[] dados = new string[18];
+                foreach (string dado in conta)
+                    dados = dado.Split(';');
                 FileStream fs = File.OpenRead($"C:\\Users\\Louise Campos\\source\\repos\\PSistemaBancario\\ImprimeExtratos\\{cpfCnpj}.txt");
-
                 byte[] b = new byte[1024];
                 UTF8Encoding temp = new(true);
 
+                Console.ForegroundColor = ConsoleColor.DarkYellow;
                 Console.WriteLine("****************************** EXTRATO DA CONTA ***********************************");
+                Console.ForegroundColor = ConsoleColor.White;
                 Console.WriteLine($"CPF/CNPJ: {DadoCliente}");
+                Console.WriteLine($"Nome: {dados[3]}\n");
 
                 while (fs.Read(b, 0, b.Length) > 0)
                 {
                     Console.WriteLine(temp.GetString(b));
                 }
-                Console.WriteLine("***********************************************************************************");
-                Console.WriteLine($"\nSALDO ATUAL DA CONTA: R${Saldo:N2}");
-                Console.WriteLine("***********************************************************************************");
 
+                Console.ForegroundColor = ConsoleColor.DarkYellow;
+                Console.WriteLine("***********************************************************************************");
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.WriteLine($"\nSALDO ATUAL DA CONTA: R${Saldo:N2}");
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.ForegroundColor = ConsoleColor.DarkYellow;
+                Console.WriteLine("***********************************************************************************");
+                Console.ForegroundColor = ConsoleColor.White;
+                fs.Close();
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"Não há impressões disponíveis!! Erro: {ex.Message}");
-                Console.WriteLine("Pessione ENTER para sair:");
-                Console.ReadKey();
                 return;
             }
+            Console.WriteLine("Pessione ENTER para sair:");
+            Console.ReadKey();
         }
         protected int MenuCaixaEletronico()
         {
@@ -171,7 +183,10 @@ namespace PSistemaBancario
                 return opc;
 
             } while (opc != 0);
+            Console.WriteLine();
+            Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine("                                                          >>>FIM<<<");
+            Console.ForegroundColor = ConsoleColor.White;
             return 0;
         }
     }

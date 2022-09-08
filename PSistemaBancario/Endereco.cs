@@ -14,8 +14,8 @@ namespace PSistemaBancario
         protected string Bairro { get; set; }
         protected string CEP { get; set; }
         protected string Cidade { get; set; }
-        protected string UF { get; set; }
-        protected int IdPessoa { get; set; }
+        protected string Estado { get; set; }
+        protected int IDPessoa { get; set; }
 
         public Endereco()
         {
@@ -29,50 +29,49 @@ namespace PSistemaBancario
             Bairro = bairro;
             CEP = cep;
             Cidade = cidade;
-            UF = estado;
+            Estado = estado;
         }
         public override string ToString()
         {
-            return "IdPessoa: " + IdPessoa + ";Logradouro: " + Logradouro + ";Numero: " + Numero + ";Complemento: " + Complemento + ";Bairro: " + Bairro +
-                ";CEP: " + CEP + ";Cidade: " + Cidade + ";Estado: " + UF+ ";";
+            return "IdPessoa: " + IDPessoa + ";Logradouro: " + Logradouro + ";Numero: " + Numero + ";Complemento: " + Complemento + ";Bairro: " + Bairro +
+                ";CEP: " + CEP + ";Cidade: " + Cidade + ";Estado: " + Estado+ ";";
 
         }
        public string DadosEnd()
         {
-            return $" {Logradouro};{Numero};{Complemento};{Bairro};{CEP};{Cidade};{UF};";
+            return $" {Logradouro};{Numero};{Complemento};{Bairro};{CEP};{Cidade};{Estado};";
         }
         public string CadastrarEndereco(int id)
         {
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
             Console.WriteLine("                                            >>>CADASTRE SEU ENDEREÇO<<<");
+            Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine();
-            Console.WriteLine(" ♦ Digite a quantidade de endereço que deseja cadastrar: ");
+            Console.WriteLine(" * Digite a quantidade de endereço que deseja cadastrar: ");
             int qtd_endereco = int.Parse(Console.ReadLine());
             Endereco[] endereco = new Endereco[qtd_endereco];
+            Console.ForegroundColor = ConsoleColor.White;
 
             for (int i = 0; i < qtd_endereco; i++)
             {
-                Console.WriteLine("\nEndereço: "+(i + 1)+ " ; ");
-
-                Console.WriteLine(" ♦ Informe o nome da Avenida/Rua: ");
+                Console.ForegroundColor = ConsoleColor.DarkYellow;
+                Console.Write("\nEndereço: "+(i + 1)+ ";");
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.WriteLine();
+                Console.Write(" * Informe o nome da Avenida/Rua: ");
                 Logradouro = Console.ReadLine();
-
-                Console.WriteLine(" ♦ Informe o Número");
+                Console.Write(" * Informe o Número: ");
                 Numero = Console.ReadLine();
-
-                Console.WriteLine(" ♦ Informe o Complemento");
+                Console.Write(" * Informe o Complemento: ");
                 Complemento = Console.ReadLine();
-
-                Console.WriteLine(" ♦ Informe o Bairro");
+                Console.Write(" * Informe o Bairro: ");
                 Bairro = Console.ReadLine();
-
-                Console.WriteLine(" ♦ Informe o Cep");
+                Console.Write(" * Informe o Cep: ");
                 CEP = Console.ReadLine();
-
-                Console.WriteLine(" ♦ Informe a Cidade");
+                Console.Write(" * Informe a Cidade: ");
                 Cidade = Console.ReadLine();
-
-                Console.WriteLine(" ♦ Informe o Estado");
-                UF = Console.ReadLine();
+                Console.Write(" * Informe o Estado: ");
+                Estado = Console.ReadLine();
                 
             }
             return DadosEnd();

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Linq.Expressions;
 using PSistemaBancario;
 
 namespace PSistemaBancario
@@ -13,111 +14,131 @@ namespace PSistemaBancario
             do
             {
                 Console.Clear();
+                Console.ForegroundColor = ConsoleColor.DarkYellow;
                 Console.WriteLine("\n♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ BEM VINDO AO BANCO MORANGÃO ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ");
+                Console.ForegroundColor = ConsoleColor.White;
                 Console.WriteLine();
-                Console.WriteLine("                                       >>>>>>>>>>>>>    MENU   <<<<<<<<<<<<");
+                Console.ForegroundColor= ConsoleColor.DarkYellow;
+                Console.WriteLine("                                         >>>>>>>>>>>>   MENU   <<<<<<<<<<<<");
+                Console.ForegroundColor = ConsoleColor.White;
                 Console.WriteLine("                                         1 - Não sou cliente");
                 Console.WriteLine("                                         2 - Já sou cliente");
                 Console.WriteLine("                                         3 - Acesso RESTRITO para Bancários");
                 Console.WriteLine("                                         0 - Sair");
-                Console.Write("                                             Opção: ");
+                Console.Write("                                         Opção: ");
                 opcMenu = int.Parse(Console.ReadLine());
+                
                 switch (opcMenu)
                 {
                     case 1:
-                        char opc;
-                        Console.WriteLine(" ♦ Deseja se Cadastrar? Digite [s/n]");
-                        opc = char.Parse(Console.ReadLine());
-                        if (opc == 's')
+                        int opc;
+                        do
+                        {
+                            Console.WriteLine(" * Deseja se Cadastrar? Digite [1 - SIM] , [2 - NÃO]");
+                            opc = int.Parse(Console.ReadLine());
+                            if (opc == 0)
+                                return;
+                        } while (opc != 1 && opc != 2);
+                        if (opc == 1)
                         {
                             ClienteNovo();
+                        }
+                        else 
+                            MenuPrincipal();
+                        
+                        break;
+                    case 2:
+                        int opcCliente;
+                        do
+                        {
+                            Console.WriteLine(" * Digite [1 - Operações da Conta] ,  [2 - Retornar ao Menu Principal]");
+                            opcCliente = int.Parse(Console.ReadLine());
+                            if (opcCliente == 0)
+                                return;
+                        }while (opcCliente != 1 && opcCliente != 2);
+                        if (opcCliente == 1)
+                        {
+                            Conta();
                         }
                         else
                         {
                             MenuPrincipal();
                         }
                         break;
-                    case 2:
-                        Console.WriteLine(" ♦ Digite [s] - Operações da Conta / [n] - Retornar para o Menu Principal");
-                        opc = char.Parse(Console.ReadLine());
-
-                        if (opc == 's')
-                        {
-                            Conta();
-                            
-                        }
-                        else 
-                        {
-                            MenuPrincipal();
-                        }
-                        break;
                     case 3:
-                        int funcopc;
-                        Console.WriteLine(" ♦ Digite [1] - Atendente / [2] - Gerente");
-                        funcopc = int.Parse(Console.ReadLine());
-                        Console.Clear();
-                        if (funcopc == 1)
+                        int opcfunc;
+                        do
                         {
-                            Atendente atendente = new Atendente();
-                            atendente.AcessoAtendente();
-                            Console.ReadKey();
-
-                            atendente.AbreConta();
-                            Console.ReadKey();
-                            Console.Clear();
-                        }
-                        else if (funcopc == 2)
+                            Console.ForegroundColor = ConsoleColor.DarkYellow;
+                            Console.WriteLine(" * Digite [1] - Atendente , [2] - Gerente e [0 - Retorna ao Menu Pricipal]");
+                            Console.ForegroundColor = ConsoleColor.White;
+                            opcfunc = int.Parse(Console.ReadLine());
+                            
+                        }while (opcfunc != 1 && opcfunc != 2);
+                        Console.WriteLine();
+                        do
                         {
-                            Gerente gerente;
-                            bool senha;
-                            Console.WriteLine                                  (">>>ACESSO ADMINISTRATIVO RESPONSÁVEL<<<");
-                            do
-                            {
-                                Console.WriteLine                                  (" ♦ Digite sua senha de acesso: ");
-                                int acesso = int.Parse(Console.ReadLine());
-                                gerente = new Gerente();
-                                senha = gerente.Autentica(acesso);
-
-                            } while (!senha);
-                             
-                            gerente.AprovaConta();
-                            Console.ReadKey();
-                            Console.Clear();
-                        }
+                            Console.Write(" * Digite o Número da agência[1 - Mococa / 2 - Araraquara / 3 - Muzambinho] ");
+                            string ag = Console.ReadLine();
+                            new Agencia(ag, opcfunc);
+                                
+                        } while (opcfunc != 1 && opcfunc != 2 && opcfunc !=3);
+                        Console.ReadKey();
                         break;
                 }
             } while (opcMenu != 0);
-            Console.WriteLine                                                                (">>>FIM<<<");
-          
+            Console.WriteLine();
+            Console.WriteLine("                                                    >>>FIM<<<");
+           
+
 
             static void ClienteNovo()
             {
-                int opc = 0;
-
+                int opc;
 
                 Console.WriteLine();
-                Console.Write("\n                        QUE BOM QUE VOCÊ ESTÁ AQUI! ENVIE SUA SOLICITAÇÃO DE CADASTRO ABAIXO:");
-                Console.WriteLine();
-                Console.Write("\n ♦ Escolha a opção: [Pessoa fisica: 1]  [Pessoa Juridica: 2]: ");
-                opc = int.Parse(Console.ReadLine());
+                Console.ForegroundColor = ConsoleColor.DarkYellow;
+                Console.Write("\n                                           QUE BOM QUE VOCÊ ESTÁ AQUI!!!!");
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.Write("\nENVIE SUA SOLICITAÇÃO DE CADASTRO ABAIXO:");
+                do
+                {
+                    Console.Write("\n * Escolha a opção: [Pessoa fisica: 1]  [Pessoa Juridica: 2]  [Sair: 0]: ");
+                    opc = int.Parse(Console.ReadLine());
+                    if(opc != 1 && opc != 2)
+                    Console.WriteLine("Opção Inválida");
+                    if (opc == 0)
+                        return;
+
+                } while(opc != 1 && opc!=2);  
                 Console.WriteLine();
                 if (opc == 1)
                 {
-                    Console.WriteLine("                              >>>CADASTRO PESSOA FÍSICA: DADOS PESSOAIS<<< ");
+                    Console.ForegroundColor = ConsoleColor.DarkYellow;
+                    Console.WriteLine("                                   >>>CADASTRO PESSOA FÍSICA: DADOS PESSOAIS<<< ");
+                    Console.ForegroundColor = ConsoleColor.White;
                     ClientePF pf1 = new ClientePF();
                     pf1.SolicitarAberturaPF();
-                    Console.WriteLine("                      CADASTRO REALIZADO COM SUCESSO! AGUARDANDO ANÁLISE DE APROVAÇÃO!");
-                    Console.WriteLine("Pressione ENTER para retornar ao Menu Principal");
+                    Console.ForegroundColor = ConsoleColor.DarkYellow;
+                    Console.WriteLine("                          CADASTRO REALIZADO COM SUCESSO! AGUARDANDO ANÁLISE DE APROVAÇÃO!");
+                    Console.WriteLine();
+                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.WriteLine("                                    Pressione ENTER para retornar ao Menu Principal");
                     Console.WriteLine();
                     Console.ReadKey();
                 }
                 else
                 {
-                    Console.WriteLine("                              >>>CADASTRO PESSOA JURIDICA: DADOS DA EMPRESA<<< ");
+                    Console.ForegroundColor = ConsoleColor.DarkYellow;
+                    Console.WriteLine("                                   >>>CADASTRO PESSOA JURIDICA: DADOS DA EMPRESA<<< ");
+                    Console.ForegroundColor = ConsoleColor.White;
                     ClientePJ pj1 = new ClientePJ();
                     pj1.SolicitarAberturaPJ();
-                    Console.WriteLine("                       CADASTRO REALIZADO COM SUCESSO! AGUARDANDO ANÁLISE DE APROVAÇÃO!");
-                    Console.WriteLine("Pressione ENTER para retornar ao Menu Principal");
+                    Console.ForegroundColor = ConsoleColor.DarkYellow;
+                    Console.WriteLine("                          CADASTRO REALIZADO COM SUCESSO! AGUARDANDO ANÁLISE DE APROVAÇÃO!");
+                    Console.WriteLine();
+                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.WriteLine("                                    Pressione ENTER para retornar ao Menu Principal");
                     Console.WriteLine();
                     Console.ReadKey();
                     Console.Clear();
@@ -127,35 +148,46 @@ namespace PSistemaBancario
             }
             static void Conta()
             {
-                Console.WriteLine("Digite seu CPF ou CNPJ");
-                string cpfCnpj = Console.ReadLine();
-                DirectoryInfo dir = new DirectoryInfo("C:\\Users\\Louise Campos\\source\\repos\\PSistemaBancario\\ContasBanco");
-                var arq = dir.GetFiles($"{cpfCnpj}.*");
-                string[] solicita = System.IO.File.ReadAllLines($"C:\\Users\\Louise Campos\\source\\repos\\PSistemaBancario\\ContasBanco\\{cpfCnpj}.txt");
-                string[] dados = new string[18];
-                foreach (string dado in solicita)
-                    dados = dado.Split(';');
-                if (dados[16].Contains("Conta Normal;"))
+                try
                 {
-
-                    ContaNormal conta = new ContaNormal(cpfCnpj);
-                    conta.OperacoesCaixaEletr();
+                    Console.ForegroundColor = ConsoleColor.DarkYellow;
+                    Console.WriteLine(" * Digite seu CPF ou CNPJ");
+                    Console.ForegroundColor = ConsoleColor.White;
+                    string cpfCnpj = Console.ReadLine();
+                    DirectoryInfo dir = new DirectoryInfo("C:\\Users\\Louise Campos\\source\\repos\\PSistemaBancario\\ContasBanco");
+                    var arq = dir.GetFiles($"{cpfCnpj}.*");
+                    string[] solicita = System.IO.File.ReadAllLines($"C:\\Users\\Louise Campos\\source\\repos\\PSistemaBancario\\ContasBanco\\{cpfCnpj}.txt");
+                    string[] dados = new string[18];
+                    foreach (string dado in solicita)
+                        dados = dado.Split(';');
+                    
+                    if (dados[16].Contains("Normal"))
+                    {
+                        ContaNormal conta = new ContaNormal(cpfCnpj);
+                        conta.OperarCaixaEletro();
+                    }
+                    else if (dados[16].Contains("VIP"))
+                    {
+                        ContaVIP conta = new ContaVIP(cpfCnpj);
+                        conta.OperarCaixaEletro();
+                    }
+                    else if (dados[16].Contains("Universitária"))
+                    {
+                        CCUniversitaria conta = new CCUniversitaria(cpfCnpj);
+                        conta.OperarCaixaEletro();
+                        return;
+                    }
                 }
-                else if (dados[16].Contains("Conta VIP;"))
+                catch (Exception ex)
                 {
-                    ContaVIP conta = new ContaVIP(cpfCnpj);
-                    conta.OperacoesCaixaEletr();
-                }
-                else
-                {
-                    CCUniversitaria conta = new CCUniversitaria(cpfCnpj);
-                    conta.OperacoesCaixaEletr();
-                    return;
-
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine($"\nConta não encontrada! \nErro: {ex.Message}");
+                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.WriteLine("Pressione ENTER para retornar ao MENU");
+                    Console.ReadKey();
                 }
                 
             }
-            
         }
         static void Main(string[] args)
         {

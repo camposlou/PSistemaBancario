@@ -11,6 +11,7 @@ namespace PSistemaBancario
     {
         public CCUniversitaria(string cpfCnpj)
         {
+            //Busca o arquivo que tem o CPF/CNPJ recebido como parâmetro
             DirectoryInfo dir = new DirectoryInfo("C:\\Users\\Louise Campos\\source\\repos\\PSistemaBancario\\ContasBanco");
             var arq = dir.GetFiles($"{cpfCnpj}.*");
             string[] solicita = System.IO.File.ReadAllLines($"C:\\Users\\Louise Campos\\source\\repos\\PSistemaBancario\\ContasBanco\\{cpfCnpj}.txt");
@@ -18,20 +19,23 @@ namespace PSistemaBancario
             foreach (string dado in solicita)
                 dados = dado.Split(';');
 
+            //Verifica se o arquivo é do tipo PF, caso seja ela cria um objeto PF com os dados do arquivo
             if (solicita[0].Contains("Física"))
+                if (solicita[0].Contains("Física"))
             {
                 ClientePF pessoa = new(int.Parse(dados[0]), dados[2], dados[3], dados[4], DateTime.Parse(dados[5]), dados[6], float.Parse(dados[7]), (dados[8]));
                 Pessoa = pessoa;
-                Numconta = int.Parse(dados[0]);
+                NumConta = int.Parse(dados[0]);
                 DadoCliente = dados[6];
             }
             else
             {
                 ClientePJ empresa = new(int.Parse(dados[0]), dados[2], dados[3], dados[4], DateTime.Parse(dados[5]), dados[6], dados[7], float.Parse((dados[8])));
                 Empresa = empresa;
-                Numconta = int.Parse(dados[0]);
+                NumConta = int.Parse(dados[0]);
                 DadoCliente = dados[6];
             }
+            //Cria o objeto do tipo endereço com os dados do arquivo
             Endereco end = new(dados[9], dados[10], dados[11], dados[12], dados[13], dados[14], dados[15]);
             Saldo = float.Parse(dados[17]);
             Endereco = end;
@@ -42,85 +46,140 @@ namespace PSistemaBancario
         }
         public bool SacarCUniver(float valor)
         {
+            //Verifica se o saldo ficar mais que R$ -1000,00 não permite efetuar o método
             if (this.Saldo - valor < -1000)
             {
-                Console.WriteLine("Não foi possível. Saldo Insufuciente! ");
+                Console.ForegroundColor = ConsoleColor.DarkYellow;
+                Console.WriteLine("Não foi possível realizar o saque! SALDO INSUFICIENTE.");
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.ReadKey();
                 return false;
             }
             else
             {
                 Sacar(valor, this.DadoCliente);
+                Console.ForegroundColor = ConsoleColor.DarkYellow;
                 Console.WriteLine("Transação realizada com sucesso!");
+                Console.ForegroundColor = ConsoleColor.White;
 
                 Console.WriteLine("Saldo atual " + (this.Saldo - valor));
+                Console.ReadKey();
                 return true;
             }
-            Console.WriteLine("Tecle ENTER para continuar ");
-            Console.ReadKey();
         }
         public void Transferir(string cpfCnpjDestino, float valorSolicitado)
         {
-            SacarCUniver(valorSolicitado);
-            Depositar(valorSolicitado, cpfCnpjDestino);
-            //AddExtrato
-        }
-        public void RealizaPagamento(float valor)
-        {
-            SacarCUniver(valor);
-        }
-        public void OperacoesCaixaEletr()
-        {
-            
-            int operacao = MenuCaixaEletronico();
-            switch(operacao)
+            if (SacarCUniver(valorSolicitado))
             {
-                case 1:
-
-                    Console.WriteLine("Digite o valor de saque desejado: ");
-                    float saque = float.Parse(Console.ReadLine());
-                    SacarCUniver(saque);
-                    break;
-                case 2:
-                    Console.WriteLine("Digite o valor do depósito: ");
-                    float deposito = float.Parse(Console.ReadLine());
-                    Depositar(deposito, DadoCliente);
-                    break;
-                case 3:
-                    Console.WriteLine("Digite [1] - CPF ou [2]- CNPJ do Destinatário: ");
-                    int opc = int.Parse(Console.ReadLine());
-                    Console.WriteLine();
-                    if (opc == 1)
-                    {
-                        Console.WriteLine("\nCPF: ");
-                        string cpf = Console.ReadLine();
-                        Console.WriteLine("Digite o valor que deseja transferir: ");
-                        float transfere = float.Parse(Console.ReadLine());
-                        Transferir(cpf, transfere);
-                    }
-                    if (opc == 2)
-                    {
-                        Console.WriteLine("\nCNPJ: ");
-                        string cnpj = Console.ReadLine();
-
-                        Console.WriteLine("Digite o valor que deseja transferir: ");
-                        float transfere = float.Parse(Console.ReadLine());
-                        Transferir(cnpj, transfere);
-                    }
-                    break;
-                case 4:
-                    Console.WriteLine("Digite o valor do Boleto para pagamento: ");
-                    float pagamento = float.Parse(Console.ReadLine());
-                    RealizaPagamento(pagamento);
-                    break;
-                case 5:
-
-                    GetExtrato(DadoCliente);
-                    break;
-                case 6:
-                    
-                    SolicitarEmprestimo(DadoCliente);
-                    break;
+                Console.WriteLine(cpfCnpjDestino);
+                Depositar(valorSolicitado, cpfCnpjDestino);
+                AddExtrato(DadoCliente, $"Tranferência para o CPF / CNPJ {cpfCnpjDestino}: {DateTime.Now} -------- R$ {valorSolicitado:N2}");
+                Console.ReadKey();
             }
+        }
+        public void RealizarPagamento(float valor)
+        {
+            if(SacarCUniver(valor))
+            AddExtrato(DadoCliente, $"Pagamento de boleto: {DateTime.Now} -------- R$ {valor:N2}");
+            Console.ReadKey();
+
+        }
+        public void OperarCaixaEletro()
+        {
+            int operacao;
+            do
+            {
+                operacao = MenuCaixaEletronico();
+                switch (operacao)
+                {
+                    case 1:
+                        Console.ForegroundColor = ConsoleColor.DarkYellow;
+                        Console.WriteLine(" * Digite o valor do saque desejado: ");
+                        Console.ForegroundColor = ConsoleColor.White;
+                        float saque;
+                        while (!float.TryParse(Console.ReadLine(), out saque))
+                            Console.WriteLine(" * Digite somente números!");
+                        if (SacarCUniver(saque))
+                            AddExtrato(DadoCliente, $"SAQUE REALIZADO: {DateTime.Now} ---------- R${saque:N2}");
+                        break;
+
+                    case 2:
+                        Console.ForegroundColor = ConsoleColor.DarkYellow;
+                        Console.WriteLine(" * Digite o valor que deseja depositar: ");
+                        Console.ForegroundColor = ConsoleColor.White;
+                        float deposito;
+                        while (!float.TryParse(Console.ReadLine(), out deposito))
+                            Console.WriteLine(" * Digite somente números!");
+                        try
+                        {
+                            Depositar(deposito, DadoCliente);
+                            AddExtrato(DadoCliente, $"DEPÓSITO EM CONTA: {DateTime.Now} ---------- R${deposito:N2}");
+                        }
+                        catch (Exception)
+                        {
+                            Console.WriteLine($"Não foi possível realizar o depósito na conta CPF/CNPJ: {DadoCliente}");
+                        }
+                        break;
+
+                    case 3:
+                        Console.WriteLine(" * Digite [1] - CPF ou [2]- CNPJ do Destinatário: ");
+                        int opc = int.Parse(Console.ReadLine());
+                        if (opc == 1)
+                        {
+
+
+                            Console.ForegroundColor = ConsoleColor.DarkYellow;
+                            Console.WriteLine(" * CPF: ");
+                            Console.ForegroundColor = ConsoleColor.White;
+                            string cpf = Console.ReadLine();
+                            Console.ForegroundColor = ConsoleColor.DarkYellow;
+                            Console.WriteLine(" * Digite o valor que deseja transferir: ");
+                            Console.ForegroundColor = ConsoleColor.White;
+                            float transfere;
+                            while (!float.TryParse(Console.ReadLine(), out transfere))
+                                Console.WriteLine(" * Digite somente números!");
+                            Transferir(cpf, transfere);
+                        }
+                        if (opc == 2)
+                        {
+                            Console.ForegroundColor = ConsoleColor.DarkYellow;
+                            Console.WriteLine(" * CNPJ: ");
+                            Console.ForegroundColor = ConsoleColor.White;
+                            string cnpj = Console.ReadLine();
+                            Console.ForegroundColor = ConsoleColor.DarkYellow;
+                            Console.WriteLine(" * Digite o valor que deseja transferir: ");
+                            Console.ForegroundColor = ConsoleColor.White;
+                            float transfere;
+                            while (!float.TryParse(Console.ReadLine(), out transfere))
+                                Console.WriteLine(" * Digite somente números!");
+                            Transferir(cnpj, transfere);
+                        }
+                        break;
+
+                    case 4:
+                        Console.ForegroundColor = ConsoleColor.DarkYellow;
+                        Console.WriteLine(" * Digite o valor do Boleto para pagamento: ");
+                        Console.ForegroundColor = ConsoleColor.White;
+                        float pagamento;
+                        while (!float.TryParse(Console.ReadLine(), out pagamento))
+                            Console.WriteLine(" * Digite somente números!");
+                        RealizarPagamento(pagamento);
+                        break;
+
+                    case 5:
+                        GetExtrato(DadoCliente);
+                        Console.ReadKey();
+                        break;
+
+                    case 6:
+                        SolicitarEmprestimo(DadoCliente);
+                        Console.ReadKey();
+                        break;
+                    default:
+                        break;
+                }
+            } while (operacao != 0);
+
         }
     }
 }

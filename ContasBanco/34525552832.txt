@@ -1,1 +1,1 @@
-6;Conta Física;;Louise;16;09/07/1987;34525552832;1500;; avenida;200;10;Vila;14;ara;Sp;Tipo de conta: Conta Normal;0;
+1;Conta Física;1;Louise;16;09/07/1987;34525552832;2000;123456; Avenida;200;1;Vila;14;arara;Sp;Tipo de conta: Conta Universitária;0;
