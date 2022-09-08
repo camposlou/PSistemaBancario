@@ -117,6 +117,9 @@ namespace PSistemaBancario
             catch(Exception ex)
             {
                 Console.WriteLine($"Não foi possível salvar o extrato!! Contate o Suporte: Erro: {ex.Message}");
+                Console.WriteLine("Pessione ENTER para sair:");
+                Console.ReadKey();
+                return;
             }
             
         }
@@ -144,6 +147,8 @@ namespace PSistemaBancario
             catch (Exception ex)
             {
                 Console.WriteLine($"Não há impressões disponíveis!! Erro: {ex.Message}");
+                Console.WriteLine("Pessione ENTER para sair:");
+                Console.ReadKey();
                 return;
             }
         }

@@ -40,16 +40,20 @@ namespace PSistemaBancario
         {
             return $"{Pessoa.ToString()}{Endereco.ToString()}Saldo = {Saldo};";
         }
-        public void SacarCUniver(float valor)
+        public bool SacarCUniver(float valor)
         {
             if (this.Saldo - valor < -1000)
+            {
                 Console.WriteLine("Não foi possível. Saldo Insufuciente! ");
+                return false;
+            }
             else
             {
                 Sacar(valor, this.DadoCliente);
                 Console.WriteLine("Transação realizada com sucesso!");
 
                 Console.WriteLine("Saldo atual " + (this.Saldo - valor));
+                return true;
             }
             Console.WriteLine("Tecle ENTER para continuar ");
             Console.ReadKey();
@@ -58,6 +62,7 @@ namespace PSistemaBancario
         {
             SacarCUniver(valorSolicitado);
             Depositar(valorSolicitado, cpfCnpjDestino);
+            //AddExtrato
         }
         public void RealizaPagamento(float valor)
         {

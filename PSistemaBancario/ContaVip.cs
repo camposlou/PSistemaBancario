@@ -37,18 +37,19 @@ namespace PSistemaBancario
             Saldo = float.Parse(dados[17]);
             Endereco = end;
         }
-        public void SacarCVip(float valor)
+        public bool SacarCVip(float valor)
         {
             if (this.Saldo - valor < -5000)
             {
                 Console.WriteLine("Você não possui limite para realizar essa transação!");
-                return;
+                return false;
             }
             else
             {
                 Sacar(valor, this.DadoCliente);
                 Console.WriteLine("Débito/Pagamento realizado com sucesso!");
                 Console.WriteLine("Saldo atual " + (this.Saldo - valor));
+                return true;
             }
             Console.WriteLine("Tecle ENTER para continuar ");
             Console.ReadKey();
@@ -57,6 +58,7 @@ namespace PSistemaBancario
         {
             SacarCVip(valorSolicitado);
             Depositar(valorSolicitado, cpfCnpjDestino);
+            //AddExtrato
         }
         public void RealizaPagamento(float valor)
         {
