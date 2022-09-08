@@ -1,0 +1,1 @@
+2;Conta Jurídica;1;Luluzinha;16;10/10/2010;123456789;Lulu;0; avenida;200;1;Vila;14;Arara;Sp;Tipo de conta: Conta VIP;0;

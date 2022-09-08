@@ -9,10 +9,11 @@ namespace PSistemaBancario
 {
     internal class Pessoa
     {
-        protected string Nome { get; set; }
+        public string Nome { get; set; }
         protected string Telefone { get; set; }
         protected DateTime Data { get; set; }
-        protected int IdPessoa { get; set; }
+        protected int IDPessoa { get; set; }
+        public string Agencia { get; set; } 
 
         public Pessoa() 
         { 
@@ -29,7 +30,6 @@ namespace PSistemaBancario
             int id = int.Parse(num[0]);
             return id;
         }
-        //Método para devolver o Id no arquivo
         protected void SaveID(int id)
         {
             StreamWriter CodPessoa = new StreamWriter($"C:\\Users\\Louise Campos\\source\\repos\\PSistemaBancario\\DBClientes\\Contador\\Contador.txt");
